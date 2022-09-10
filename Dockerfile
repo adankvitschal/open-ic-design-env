@@ -97,9 +97,6 @@ ENV PATH="${PATH}:${TOOLS_INSTALL_PATH}/magic/bin"
 ENV PATH="${PATH}:${TOOLS_INSTALL_PATH}/ngspice/bin"
 ENV PATH="${PATH}:${TOOLS_INSTALL_PATH}/xschem/bin"
 
-ADD config/env.sh env.sh
-RUN bash env.sh
-
 #######################################################################
 # Install ngspyce to interface python with ngspice
 #######################################################################
@@ -110,10 +107,15 @@ RUN bash install.sh
 #######################################################################
 # Install X and VNC servers
 #######################################################################
-FROM ngspyce as sky130b-analog-env
+FROM ngspyce as install-graphic
 
 ADD desktop/install.sh install.sh
 RUN bash install.sh
+
+#######################################################################
+# Config vnc, env, user and GO!
+#######################################################################
+FROM install-graphic as sky130-analog-env
 
 ENV VNC_PORT=5901
 EXPOSE $VNC_PORT
@@ -121,16 +123,21 @@ EXPOSE $VNC_PORT
 ENV TERM=xterm \
     VNC_COL_DEPTH=32 \
     VNC_RESOLUTION=1600x900 \
-    VNC_PW=abc123
+    VNC_PW=moduhub
 
-#Create user, add to wheel and populate home configs
+#Create user, add to wheel
 RUN useradd -ms /bin/bash moduhub
+RUN echo "moduhub" | passwd --stdin moduhub
 RUN usermod -aG wheel moduhub
+
+#Populate home and set ownership
+ADD user_config/home $HOME
+ADD desktop/start.sh start.sh
+RUN chown -R moduhub /home/moduhub/*
+RUN chgrp -R moduhub /home/moduhub/*
+
 USER moduhub
 WORKDIR /home/moduhub
-
-ADD desktop/home $HOME
 RUN mkdir $HOME/work
 
-ADD desktop/start.sh start.sh
-RUN bash start.sh
+ENTRYPOINT bash start.sh

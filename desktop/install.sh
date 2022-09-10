@@ -13,7 +13,8 @@ yum install -y tigervnc-server \
 	vim \
 	wget \
 	xorg-x11-server-Xvfb \
-	xterm
+	xterm \
+	passwd
 
 echo "Install Xfce4 UI components and disable xfce-polkit" 
 yum --enablerepo=epel -y -x gnome-keyring --skip-broken groupinstall "Xfce"
