@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=xschem
+Comment=
+Exec=xschem --rcfile $PDK_ROOT/$PDK/libs.tech/xschem/xschemrc
+Icon=utilities-terminal
+Path=/root
+Terminal=false
+StartupNotify=false
