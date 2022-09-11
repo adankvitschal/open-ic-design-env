@@ -131,13 +131,13 @@ RUN echo "moduhub" | passwd --stdin moduhub
 RUN usermod -aG wheel moduhub
 
 #Populate home and set ownership
-ADD user_config/home $HOME
-ADD desktop/start.sh start.sh
-RUN chown -R moduhub /home/moduhub/*
-RUN chgrp -R moduhub /home/moduhub/*
+ADD user_config/home /home/moduhub/
+ADD desktop/start.sh /home/moduhub/
+RUN chown -R moduhub /home/moduhub
+RUN chgrp -R moduhub /home/moduhub
 
 USER moduhub
 WORKDIR /home/moduhub
 RUN mkdir $HOME/work
 
-ENTRYPOINT bash start.sh
+ENTRYPOINT ["/home/moduhub/start.sh"]
