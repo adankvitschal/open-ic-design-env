@@ -13,4 +13,4 @@ rm -rf /tmp/.X11-unix/X1
 
 vncserver $DISPLAY -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION & PID_SUB=$!
 
-top
+top -b
