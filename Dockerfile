@@ -100,10 +100,13 @@ ENV PATH="${PATH}:${TOOLS_INSTALL_PATH}/xschem/bin"
 #######################################################################
 # Install python based tools
 #######################################################################
-FROM merge-compiled as python-tools 
-ADD ngspyce/install.sh ngspyce-install.sh
-ADD cace/install.sh cace-install.sh
+FROM merge-compiled as python-tools
+WORKDIR /tmp
+ADD python-tools/python-requirements.sh python-requirements.sh
+ADD python-tools/ngspyce-install.sh ngspyce-install.sh
+ADD python-tools/cace-install.sh cace-install.sh
 
+RUN bash python-requirements.sh
 RUN bash ngspyce-install.sh
 RUN bash cace-install.sh
 
