@@ -98,16 +98,19 @@ ENV PATH="${PATH}:${TOOLS_INSTALL_PATH}/ngspice/bin"
 ENV PATH="${PATH}:${TOOLS_INSTALL_PATH}/xschem/bin"
 
 #######################################################################
-# Install ngspyce to interface python with ngspice
+# Install python based tools
 #######################################################################
-FROM merge-compiled as ngspyce 
-ADD ngspyce/install.sh install.sh
-RUN bash install.sh
+FROM merge-compiled as python-tools 
+ADD ngspyce/install.sh ngspyce-install.sh
+ADD cace/install.sh cace-install.sh
+
+RUN bash ngspyce-install.sh
+RUN bash cace-install.sh
 
 #######################################################################
 # Install X and VNC servers
 #######################################################################
-FROM ngspyce as install-graphic
+FROM python-tools as install-graphic
 
 ADD desktop/install.sh install.sh
 RUN bash install.sh
