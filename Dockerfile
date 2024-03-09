@@ -23,7 +23,7 @@ ENV PDK=sky130B
 #######################################################################
 FROM env_options as magic
 ARG MAGIC_REPO_URL="https://github.com/rtimothyedwards/magic"
-ARG MAGIC_VERSION=8.3.322
+ARG MAGIC_VERSION=8.3.463
 
 ADD magic/install.sh install.sh
 RUN bash install.sh
@@ -45,7 +45,7 @@ RUN bash install.sh
 #######################################################################
 FROM skywater-pdk as open_pdks
 ARG OPEN_PDKS_REPO_URL="https://github.com/RTimothyEdwards/open_pdks"
-ARG OPEN_PDKS_VERSION=1.0.329
+ARG OPEN_PDKS_VERSION=1.0.470
 
 ADD open_pdks/install.sh install.sh
 RUN bash install.sh
@@ -54,8 +54,8 @@ RUN bash install.sh
 # Compile shared libngspice
 #######################################################################
 FROM env_options as libngspice
-ARG NGSPICE_REPO_URL="https://git.code.sf.net/p/ngspice/ngspice"
-ARG NGSPICE_VERSION=ngspice-37
+ARG NGSPICE_REPO_URL="https://github.com/danchitnis/ngspice-sf-mirror"
+ARG NGSPICE_VERSION=ngspice-42
 
 ADD libngspice/install.sh install.sh
 RUN bash install.sh
@@ -64,8 +64,8 @@ RUN bash install.sh
 # Compile ngspice
 #######################################################################
 FROM env_options as ngspice
-ARG NGSPICE_REPO_URL="https://git.code.sf.net/p/ngspice/ngspice"
-ARG NGSPICE_VERSION=ngspice-37
+ARG NGSPICE_REPO_URL="https://github.com/danchitnis/ngspice-sf-mirror"
+ARG NGSPICE_VERSION=ngspice-42
 
 ADD ngspice/install.sh install.sh
 RUN bash install.sh
@@ -75,7 +75,7 @@ RUN bash install.sh
 #######################################################################
 FROM env_options as xschem
 ARG XSCHEM_REPO_URL="https://github.com/StefanSchippers/xschem"
-ARG XSCHEM_VERSION=3.1.0
+ARG XSCHEM_VERSION=3.4.4
 
 ADD xschem/install.sh install.sh
 RUN bash install.sh
