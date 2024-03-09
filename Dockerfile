@@ -132,6 +132,7 @@ ENV TERM=xterm \
     VNC_PW=moduhub
 
 #Create user, add to wheel
+RUN yum install -y passwd
 RUN useradd -ms /bin/bash moduhub
 RUN echo "moduhub" | passwd --stdin moduhub
 RUN usermod -aG wheel moduhub
