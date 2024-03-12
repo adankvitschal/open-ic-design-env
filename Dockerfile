@@ -14,9 +14,9 @@ RUN bash dependencies.sh
 FROM base as env_options
 
 ENV TOOLS_INSTALL_PATH=/usr/local/share
-ENV SKY130_VERSION=B
+ENV SKY130_VERSION=A
 ENV PDK_ROOT=$TOOLS_INSTALL_PATH/pdk
-ENV PDK=sky130B
+ENV PDK=sky130A
 
 #######################################################################
 # Compile magic
