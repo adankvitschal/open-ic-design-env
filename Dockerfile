@@ -32,10 +32,7 @@ RUN bash install.sh
 # Compile skywater-pdk
 #######################################################################
 FROM magic as skywater-pdk
-ARG SKYWATER_PDK_REPO_URL="https://github.com/google/skywater-pdk"
-
-#COPY skywater-pdk/corners/corners.yml $PDK_ROOT/corners.yml
-#COPY skywater-pdk/corners/make_timing.py $PDK_ROOT/make_timing.py
+ARG SKYWATER_PDK_REPO_URL_BASE="https://github.com/efabless/skywater-pdk-libs-"
 
 ADD skywater-pdk/install.sh install.sh
 RUN bash install.sh
