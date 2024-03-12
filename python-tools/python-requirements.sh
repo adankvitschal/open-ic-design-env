@@ -4,6 +4,7 @@ yum install -y \
 	python3.11 \
 	python3.11-devel \
 	python3.11-pip \
+	python3.11-tkinter
 
 alternatives --set python3 /usr/bin/python3.11
 python3 --version
