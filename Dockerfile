@@ -98,6 +98,9 @@ ENV PATH="${PATH}:${TOOLS_INSTALL_PATH}/xschem/bin"
 # Install python based tools
 #######################################################################
 FROM merge-compiled as python-tools
+ARG CACE_REPO_URL="https://github.com/efabless/cace"
+ARG CACE_VERSION=188d784
+
 WORKDIR /tmp
 ADD python-tools/python-requirements.sh python-requirements.sh
 ADD python-tools/ngspyce-install.sh ngspyce-install.sh
