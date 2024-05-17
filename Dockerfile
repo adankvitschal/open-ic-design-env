@@ -78,6 +78,16 @@ ADD xschem/install.sh install.sh
 RUN bash install.sh
 
 #######################################################################
+# Compile netgen
+#######################################################################
+FROM env_options as netgen
+ARG NETGEN_REPO_URL="https://github.com/RTimothyEdwards/netgen"
+ARG NETGEN_VERSION=1.5.276
+
+ADD netgen/install.sh install.sh
+RUN bash install.sh
+
+#######################################################################
 # Merge compiled software and config EDA env
 #######################################################################
 FROM env_options as merge-compiled
@@ -87,12 +97,14 @@ COPY --from=magic             ${TOOLS_INSTALL_PATH}       ${TOOLS_INSTALL_PATH}
 COPY --from=ngspice           ${TOOLS_INSTALL_PATH}       ${TOOLS_INSTALL_PATH}
 COPY --from=libngspice        ${TOOLS_INSTALL_PATH}       ${TOOLS_INSTALL_PATH}
 COPY --from=xschem            ${TOOLS_INSTALL_PATH}       ${TOOLS_INSTALL_PATH}
+COPY --from=netgen            ${TOOLS_INSTALL_PATH}       ${TOOLS_INSTALL_PATH}
 
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${TOOLS_INSTALL_PATH}/ngspice/lib"
 
 ENV PATH="${PATH}:${TOOLS_INSTALL_PATH}/magic/bin"
 ENV PATH="${PATH}:${TOOLS_INSTALL_PATH}/ngspice/bin"
 ENV PATH="${PATH}:${TOOLS_INSTALL_PATH}/xschem/bin"
+ENV PATH="${PATH}:${TOOLS_INSTALL_PATH}/netgen/bin"
 
 #######################################################################
 # Install python based tools
