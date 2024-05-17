@@ -99,7 +99,7 @@ ENV PATH="${PATH}:${TOOLS_INSTALL_PATH}/xschem/bin"
 #######################################################################
 FROM merge-compiled as python-tools
 ARG CACE_REPO_URL="https://github.com/efabless/cace"
-ARG CACE_VERSION=188d784
+ARG CACE_VERSION=b6b0b4c
 
 WORKDIR /tmp
 ADD python-tools/python-requirements.sh python-requirements.sh
